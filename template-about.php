@@ -10,9 +10,9 @@ get_header(); ?>
                     <?php the_title( '<p class="about-us-intro__big-title big-title">' , '</p>' ) ?>
                 </div>
                 <div class="about-us-intro__text-column">
-                    <p class="about-us-intro__small-middle-title small-middle-title">
-                        <?php echo get_the_content(); ?>
-                    </p>
+                    <div class="about-us-intro__small-middle-title small-middle-title">
+                        <?php the_content(); ?>
+                    </div>
                 </div>
             </div>
         <?php endwhile;
@@ -21,7 +21,7 @@ get_header(); ?>
                 <?php if( get_row_layout() == 'image_section' ) : ?>
                     <?php if( $image = get_sub_field( 'image' ) ) : ?>
                         <div class="bg-img-wrap">
-                            <img src="<?php echo $image['sizes']['large']; ?>" alt="<?php echo $image['alt']; ?>" class="bg-img">
+                            <img src="<?php echo $image['sizes']['2560x1440']; ?>" alt="<?php echo $image['alt']; ?>" class="bg-img">
                         </div>
                     <?php endif; ?>
                 <?php elseif( get_row_layout() == 'rows_section' ) : ?>
@@ -69,10 +69,10 @@ get_header(); ?>
                             </div>
                             <div class="row-but-img__img-column img-column">
                                 <?php if( $vertical_img = get_sub_field( 'vertical_img' ) ) : ?>
-                                    <div class="parallax-window about-us-origination__vertical-img" data-parallax="scroll" data-position="center center" data-speed="0.9" data-z-index="1" data-image-src="<?php echo $vertical_img['sizes']['large']; ?>"></div>
+                                    <div class="parallax-window about-us-origination__vertical-img" data-parallax="scroll" data-position="center center" data-speed="0.9" data-z-index="1" data-image-src="<?php echo $vertical_img['sizes']['2560x1440']; ?>"></div>
                                 <?php endif;
                                 if( $horizontal_img = get_sub_field( 'horizontal_img' ) ) : ?>
-                                    <div class="parallax-window about-us-origination__horizontal-img" data-parallax="scroll" data-speed="0.9" data-z-index="1" data-image-src="<?php echo $horizontal_img['sizes']['large']; ?>"></div>
+                                    <div class="parallax-window about-us-origination__horizontal-img" data-parallax="scroll" data-speed="0.9" data-z-index="1" data-image-src="<?php echo $horizontal_img['sizes']['2560x1440']; ?>"></div>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -109,9 +109,11 @@ get_header(); ?>
                                     <?php while ( $staff->have_posts() ) : $staff->the_post(); ?>
                                         <div class="photo-card">
                                             <?php if( has_post_thumbnail() ) : ?>
-                                                <img class="photo-card__photo" src="<?php echo get_the_post_thumbnail_url( get_the_ID(), 'large' ); ?>" alt="">
+                                                <img class="photo-card__photo" src="<?php echo get_the_post_thumbnail_url( get_the_ID(), '2560x1440' ); ?>" alt="">
                                             <?php endif; ?>
-                                            <?php the_title( '<p class="photo-card__small-middle-title small-middle-title">' , '</p>'); ?>
+                                            <p class="photo-card__small-middle-title small-middle-title">
+                                                <?php the_title( '<a href="' . get_permalink() . '">', '</a>' ); ?>
+                                            </p>
                                         </div>
                                     <?php endwhile; ?>
                                 </div>
@@ -169,7 +171,5 @@ get_header(); ?>
                 <?php endif; ?>
             <?php endwhile; ?>
         <?php endif; ?>
-    <?php else : ?>
-        <h1><?php get_template_part( 'blocks/not_found' ); ?></h1>
     <?php endif; ?>
 <?php get_footer(); ?>
